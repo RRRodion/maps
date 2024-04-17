@@ -18,10 +18,10 @@
 
 .leaflet-container {
   height:100%;
-  width: calc(100% - 70px);
+  width: calc(100% - 110px);
   z-index: 1;
   top: 0;
-  left: 35px;
+  left: 55px;
 }
 
 .cluster-icon {
@@ -34,5 +34,12 @@
   justify-content: center;
   border-radius: 50%;
   font-size: 1.2rem;
-  box-shadow: 0 0 0px 5px #fff;
+  box-shadow: 0 0 0 5px #fff;
+}
+
+@media (max-width: 480px) {
+  .leaflet-container {
+    width: calc(100% - 70px);
+    left: 35px;
+  }
 }

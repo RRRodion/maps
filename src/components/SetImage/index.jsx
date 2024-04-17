@@ -1,15 +1,15 @@
 import React from 'react';
 import "./setImage.css";
 
-import gasStation from "../../icons/gasStation.png";
-import culture from "../../icons/culture.png";
-import entertainment from "../../icons/entertainment.png";
-import sport from "../../icons/sport.png";
-import nature from "../../icons/nature.png";
-import shop from "../../icons/shop.png";
-import other from "../../icons/other.png";
-import food from "../../icons/food.png";
-import bg from "../../icons/bg6.PNG";
+import gasStation from "../../icons/markers/gasStation.png";
+import culture from "../../icons/markers/culture.png";
+import entertainment from "../../icons/markers/entertainment.png";
+import sport from "../../icons/markers/sport.png";
+import nature from "../../icons/markers/nature.png";
+import shop from "../../icons/markers/shop.png";
+import other from "../../icons/markers/other.png";
+import food from "../../icons/markers/food.png";
+import bg from "../../icons/background.png";
 
 
 const images = [

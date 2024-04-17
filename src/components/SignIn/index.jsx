@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
-import SetImage from "./SetImage";
+import SetImage from "../SetImage";
 
 const SignIn = () => {
     const [email, setEmail] = useState("");
@@ -27,7 +27,7 @@ const SignIn = () => {
 
     return (
         <section>
-            <SetImage/>
+            <SetImage />
             <div className="login">
                 <h2>Log in</h2>
                 <div className="inputBox">

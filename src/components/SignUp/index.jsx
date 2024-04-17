@@ -1,9 +1,9 @@
-import "./signIn.css";
+import "../SignIn/signIn.css";
 import React, {useState} from "react";
 import {createUserWithEmailAndPassword} from "firebase/auth"
 import {auth} from "../../firebase";
 import {Link} from "react-router-dom";
-import SetImage from "./SetImage";
+import SetImage from "../SetImage";
 
 const SignUp = () => {
     const [email, setEmail] = useState("")

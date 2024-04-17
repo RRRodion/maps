@@ -1,41 +1,46 @@
 import React, { useState } from 'react';
 import './panel.css';
-import AuthDetails from '../Auth/AuthDetails';
-import SearchPanel from '../SearchPanel/SearchPanel';
-import FavouritesPanel from "../FavoritePanel/FavouritesPanel";
-function Panel() {
+import SignOut from '../LogoutButton';
+import SearchPanel from '../SearchPanel';
+import FavouritePanel from "../FavouritePanel";
+function LeftPanel() {
     const [isAuthDetailsVisible, setIsAuthDetailsVisible] = useState(false);
     const [isSearchPanelVisible, setIsSearchPanelVisible] = useState(false);
     const [isFavouritesPanelVisible, setIsFavouritesPanelVisible] = useState(false)
 
     const toggleAuthDetails = () => {
         setIsAuthDetailsVisible(!isAuthDetailsVisible);
+        setIsSearchPanelVisible(false);
+        setIsFavouritesPanelVisible(false);
     };
 
     const toggleSearchPanel = () => {
         setIsSearchPanelVisible(!isSearchPanelVisible);
+        setIsAuthDetailsVisible(false);
         setIsFavouritesPanelVisible(false);
     };
 
     const toggleFavouritesPanel = () => {
         setIsFavouritesPanelVisible(!isFavouritesPanelVisible);
+        setIsAuthDetailsVisible(false);
         setIsSearchPanelVisible(false);
     }
 
     return (
         <div className="panel">
             <div className="up">
-                <button className="button" onClick={toggleSearchPanel}><img src={require("../../icons/searchbtn.png")} style={{ width: '50px', height: '50px' }} alt="Search"/></button>
-                <button className="button" onClick={toggleFavouritesPanel}><img src={require("../../icons/favourites.png")} alt="Favorite"/></button>
+                <button className="button" onClick={toggleSearchPanel}><img src={require(isSearchPanelVisible ? "../../icons/searchbtn_off.png" : "../../icons/searchbtn_on.png")} style={{ width: '50px', height: '50px' }} alt="Search"/></button>
+                <button className="button" onClick={toggleFavouritesPanel}><img src={require(isFavouritesPanelVisible ? "../../icons/favourites_on.png" : "../../icons/favourites.png")} alt="Favorite"/></button>
             </div>
             <div className="down">
                 <button className="button1" onClick={toggleAuthDetails}><img src={require("../../icons/user.png")} alt="User"/></button>
-                {isAuthDetailsVisible && <AuthDetails />}
+                {isAuthDetailsVisible && <SignOut />}
             </div>
             {isSearchPanelVisible && <SearchPanel style={{ zIndex: 101 }} />}
-            {isFavouritesPanelVisible && <FavouritesPanel style={{ zIndex: 101 }} />}
+            {isFavouritesPanelVisible && <FavouritePanel style={{ zIndex: 101 }} />}
         </div>
     );
 }
 
-export default Panel;
+
+export default LeftPanel;

@@ -1,12 +1,14 @@
 import "./map.css";
 import "leaflet/dist/leaflet.css";
-import {MapContainer, TileLayer, Marker, Popup, useMapEvents} from "react-leaflet";
+import {MapContainer, TileLayer, Marker, Popup, useMapEvents, Circle} from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
-import {Icon, divIcon, point} from "leaflet";
-import React, {useEffect, useState} from "react";
+import { Icon, divIcon, point } from "leaflet";
+import React, { useEffect, useState } from "react";
+import LocationButton from "../LocationButton";
+
 
 const customIcon = new Icon({
-    iconUrl: require("../../icons/placeholder.png"),
+    iconUrl: require("../../icons/locationMarker.png"),
     iconSize: [38, 38]
 });
 
@@ -33,13 +35,18 @@ const markers = [
     }
 ];
 
-const defaultCenter = [53.8829, 27.7];
+const defaultCenter = [53.9, 27.5667];
 
 export default function Map() {
     const [center, setCenter] = useState(defaultCenter);
+    const [isLocated, setIsLocated] = useState(false);
+
+    const handleLocateButtonClick = () => {
+        setIsLocated(true);
+    };
 
     return (
-        <MapContainer center={center} zoom={13}>
+        <MapContainer center={center} zoom={14}>
             {/* OPEN STREEN MAPS TILES */}
             {/*<TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -60,7 +67,9 @@ export default function Map() {
                 subdomains={["mt0", "mt1", "mt2", "mt3"]}
             />
 
-            <LocationMarker/>
+            <LocationMarker isLocated={isLocated} />
+
+            <LocationButton onLocateClick={handleLocateButtonClick} />
 
             <MarkerClusterGroup chunkedLoading iconCreateFunction={createClusterCustomIcon}>
                 {markers.map((marker, index) => (
@@ -73,29 +82,43 @@ export default function Map() {
     );
 }
 
-function LocationMarker() {
+function LocationMarker({ isLocated }) {
     const [position, setPosition] = useState(null);
+    const [radius, setRadius] = useState(1000);
     const map = useMapEvents({});
 
     useEffect(() => {
-        map.locate();
-        map.on("locationfound", handleLocationFound);
+        if (isLocated) {
+            map.locate();
+            map.on("locationfound", handleLocationFound);
+        }
 
         return () => {
             map.off("locationfound", handleLocationFound);
         };
-    }, []);
+    }, [isLocated]);
 
     const handleLocationFound = (e) => {
         setPosition(e.latlng);
         map.flyTo(e.latlng, map.getZoom());
+
+        setRadius(1000);
     };
 
     return position === null ? null : (
-        <Marker position={position} icon={customIcon}>
-            <Popup>You are here</Popup>
-        </Marker>
+        <>
+            <Marker position={position} icon={customIcon}>
+                <Popup>You are here</Popup>
+            </Marker>
+            <Circle center={position} pathOptions={{
+                fillColor: "#5E7BC7",
+                fillOpacity: 0.3,
+                dashArray: "15, 10",
+                weight: 2,
+                opacity: 0.4,
+
+            }} radius={radius} />
+        </>
     );
 }
-
 

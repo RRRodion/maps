@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from "../../firebase";
+import "./authPanel.css";
+import exit from "../../icons/signOut.png";
 
-const AuthDetails = () => {
+const SignOut = () => {
     const [authUser, setAuthUser] = useState(null);
 
     useEffect(() => {
@@ -22,11 +24,11 @@ const AuthDetails = () => {
     };
 
     return (
-        <div>
+        <div className="authPanel">
             {authUser ? (
-                <div>
+                <div className="section">
                     <p>{`Signed in as ${authUser.email}`}</p>
-                    <button onClick={userSignOut}>Sign Out</button>
+                    <button className="logOut" onClick={userSignOut}><img src={exit} className="signOut" alt="" /></button>
                 </div>
             ) : (
                 <p>Signed Out</p>
@@ -35,4 +37,4 @@ const AuthDetails = () => {
     );
 };
 
-export default AuthDetails;
+export default SignOut;

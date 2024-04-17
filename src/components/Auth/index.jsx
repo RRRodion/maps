@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { auth } from "../../firebase";
 import { Link } from 'react-router-dom';
-import Loading from "../Loading/loading";
-import Panel from "../LeftPanel/Panel";
+import Loading from "../Loading";
+import LeftPanel from "../LeftPanel";
 import Map from "../Map/Map";
-import SetImage from "./SetImage";
+import SetImage from "../SetImage";
 
-const AuthHandler = () => {
+const AuthDetails = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -36,7 +36,7 @@ const AuthHandler = () => {
         <>
             {user ? (
                 <>
-                    <Panel />
+                    <LeftPanel />
                     <Map />
                 </>
             ) : (
@@ -60,4 +60,4 @@ const AuthHandler = () => {
     );
 };
 
-export default AuthHandler;
+export default AuthDetails;
